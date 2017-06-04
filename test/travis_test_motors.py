@@ -49,14 +49,14 @@ class MotorTest(unittest.TestCase):
         self.file_check("rtmotor_raw_r0",600,"wrong right value from cmd_vel")
 
         time.sleep(1.1)
-        self.file_check("rtmotor_raw_l0",0,"don't stop after 1[s]")
         self.file_check("rtmotor_raw_r0",0,"don't stop after 1[s]")
+        self.file_check("rtmotor_raw_l0",0,"don't stop after 1[s]")
 
     def test_on_off(self):
         off = rospy.ServiceProxy('/motor_off', Trigger)
         ret = off()
         self.assertEqual(ret.success, True, "motor off does not succeeded")
-        self.assertEqual(ret.success, "OFF", "motor off wrong message")
+        self.assertEqual(ret.message, "OFF", "motor off wrong message")
         with open("/dev/rtmotoren0","r") as f:
             data = f.readline()
             self.assertEqual(data,"0\n", "wrong value in rtmotor0 at motor off")
@@ -64,7 +64,7 @@ class MotorTest(unittest.TestCase):
         on = rospy.ServiceProxy('/motor_on', Trigger)
         ret = on()
         self.assertEqual(ret.success, True, "motor on does not succeeded")
-        self.assertEqual(ret.success, "ON", "motor on wrong message")
+        self.assertEqual(ret.message, "ON", "motor on wrong message")
         with open("/dev/rtmotoren0","r") as f:
             data = f.readline()
             self.assertEqual(data,"1\n", "wrong value in rtmotor0 at motor on")
