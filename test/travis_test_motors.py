@@ -4,11 +4,11 @@ import unittest, rostest
 import rosnode, rospy
 import time
 from pimouse_ros.msg import MotorFreqs
-from pimouse_ros.srv import TimedMotion
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
+from pimouse_ros.srv import TimedMotion
 
-class MotorTest(unittest,TestCase):
+class MotorTest(unittest.TestCase):
     def setUp(self):
         rospy.wait_for_service('/motor_on')
         rospy.wait_for_service('/motor_off')
