@@ -51,7 +51,7 @@ class BuzzerTest(unittest.TestCase):
             data = f.readline()
             self.device_values.append(int(data.rstrip()))
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     time.sleep(3)
     rospy.init_node('travis_test_buzzer')
     rostest.rosrun('pimouse_ros', 'travis_test_buzzer', BuzzerTest)	
